@@ -11,9 +11,3 @@ body {
     font-size: 30px;
     margin-bottom: 30px;
 }
-
-.container {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-}

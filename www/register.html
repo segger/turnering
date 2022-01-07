@@ -14,46 +14,63 @@
 
         <!-- Step 1-->
 
-        <div>
-            <label for="name">Förare (endast förnamn)</label>
-            <input type="text" name="name" id="name"/>
+        <div class="container">
+        <form id="step1" class="step1" novalidate>
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="name">Förare</label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Sara" aria-describedby="nameHelp" required/>
+                <small id="nameHelp" class="form-text text-muted">Endast förnamn</small>
+            </div>
+            <div class="form-group col">
+                <label for="dog">Hund</label>
+                <input type="text" name="dog" id="dog" class="form-control" placeholder="Niko" required/>
+            </div>
+            <div class="form-group col">
+                <div>Klass</div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="nw1" name="nwClass" value="NW1" class="custom-control-input" required>
+                    <label for="nw1" class="custom-control-label">NW1</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="nw2" name="nwClass" value="NW2" class="custom-control-input" required>
+                    <label for="nw2" class="custom-control-label">NW2</label>
+                </div>
+            </div>
+            <div class="form-group col align-self-center">
+                <button id="buttonStep1" type="button" class="btn btn-primary">Ok</button>
+            </div>
         </div>
-        <div>
-            <label for="dog">Hund</label>
-            <input type="text" name="dog" id="dog"/>
-        </div>
-        <div>
-            <input type="radio" id="nw1" name="nwClass" value="NW1">
-            <label for="nw1">NW1</label><br/>
-            <input type="radio" id="nw2" name="nwClass" value="NW2">
-            <label for="nw2">NW2</label><br/>
-        </div>
+        </form>
 
         <!-- Step 2 -->
 
-        <div id="search_1">
-            <h3>Sök 1</h3>
-            <div>
+        <form id="step2">
+        <div id="search_1" class="card">
+            <h3 class="card-header">Sök 1</h3>
+            <div class="card-body">
+            <div class="form-group">
                 <label for="point_1">Poäng</label>
-                <input type="number" name="point_1" id="point_1"/>
+                <input type="number" name="point_1" id="point_1" class="form-control" placeholder="0"/>
             </div>
-            <div>
+            <div class="form-group">
                 <label for="error_1">Fel</label>
-                <input type="number" name="error_1" id="error_1"/>
+                <input type="number" name="error_1" id="error_1" class="form-control" placeholder="0"/>
             </div>
-            <div>
+            <div class="form-group">
                 <label for="time_1">Tid</label>
                 <input type="number" name="time_1_mm" id="time_1_mm"/>:
                 <input type="number" name="time_1_ss" id="time_1_ss"/>,
                 <input type="number" name="time_1_ms" id="time_1_ms"/>
             </div>
+            </div>
         </div>
 
         <div id="search_2">
             <h3>Sök 2</h3>
-            <div>
+            <div class="form-group">
                 <label for="point_2">Poäng</label>
-                <input type="number" name="point_2" id="point_2"/>
+                <input type="number" name="point_2" id="point_2" class="form-control" placeholder="0"/>
             </div>
             <div>
                 <label for="error_2">Fel</label>
@@ -102,10 +119,14 @@
                 <input type="number" name="time_4_ms" id="time_4_ms"/>
             </div>
         </div>
-
+        </form>
         <!-- Step 3: Summary? -->
 
-        <button id="save" type="button" class="btn btn-primary">Spara</button>
+        <div id="step3">
+            <button id="save" type="button" class="btn btn-primary">Spara</button>
+        </div>
+
+        </div>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
