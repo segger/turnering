@@ -45,81 +45,184 @@
 
         <!-- Step 2 -->
 
-        <form id="step2">
-        <div id="search_1" class="card">
-            <h3 class="card-header">Sök 1</h3>
+        <div class="accordion" id="accordionStep2">
+            <form id="step2">
+            
+            <!-- search1 -->
+            <div id="search_1" class="card">
+            <div class="card-header" id="headingOne">
+                <h3>
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Sök 1
+                </button>
+                </h3>
+            </div>
+            
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionStep2">
             <div class="card-body">
-            <div class="form-group">
-                <label for="point_1">Poäng</label>
-                <input type="number" name="point_1" id="point_1" class="form-control" placeholder="0"/>
+                <div class="form-row align-items-center">
+                <div class="form-group col">
+                    <label for="point_1">Poäng</label>
+                    <input type="number" name="point_1" id="point_1" class="form-control" placeholder="0"/>
+                </div>
+                <div class="form-group col">
+                    <label for="error_1">Fel</label>
+                    <input type="number" name="error_1" id="error_1" class="form-control" placeholder="0"/>
+                </div>
+                </div>
+                <div class="form-row align-items-center">
+                    <div class="form-group col">
+                        <div>Tid</div>
+                        <div class="form-row input-time align-items-center">
+                            <input type="number" name="time_1_mm" id="time_1_mm" class="form-control col-sm-2" placeholder="mm"/>:
+                            <input type="number" name="time_1_ss" id="time_1_ss" class="form-control col-sm-2" placeholder="ss"/>,
+                            <input type="number" name="time_1_ms" id="time_1_ms" class="form-control col-sm-3" placeholder="000"/>
+                        </div>
+                    </div>
+                    <div class="form-group col">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="sse_1" class="custom-control-input" id="sse_1">
+                            <label class="custom-control-label" for="sse_1">SSE</label>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="error_1">Fel</label>
-                <input type="number" name="error_1" id="error_1" class="form-control" placeholder="0"/>
-            </div>
-            <div class="form-group">
-                <label for="time_1">Tid</label>
-                <input type="number" name="time_1_mm" id="time_1_mm"/>:
-                <input type="number" name="time_1_ss" id="time_1_ss"/>,
-                <input type="number" name="time_1_ms" id="time_1_ms"/>
             </div>
             </div>
+            <!--END: search1-->
+
+            <!-- search2 -->
+            <div id="search_2" class="card">
+            <div class="card-header" id="headingTwo">
+                <h3>
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    Sök 2
+                </button>
+                </h3>
+            </div>
+                
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionStep2">
+            <div class="card-body">
+                <div class="form-row align-items-center">
+                <div class="form-group col">
+                    <label for="point_2">Poäng</label>
+                    <input type="number" name="point_2" id="point_2" class="form-control" placeholder="0"/>
+                </div>
+                <div class="form-group col">
+                    <label for="error_2">Fel</label>
+                    <input type="number" name="error_1" id="error_2" class="form-control" placeholder="0"/>
+                </div>
+                </div>
+                <div class="form-row align-items-center">
+                    <div class="form-group col">
+                        <div>Tid</div>
+                        <div class="form-row input-time align-items-center">
+                            <input type="number" name="time_2_mm" id="time_2_mm" class="form-control col-sm-2" placeholder="mm"/>:
+                            <input type="number" name="time_2_ss" id="time_2_ss" class="form-control col-sm-2" placeholder="ss"/>,
+                            <input type="number" name="time_2_ms" id="time_2_ms" class="form-control col-sm-3" placeholder="000"/>
+                        </div>
+                    </div>
+                    <div class="form-group col">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="sse_2" class="custom-control-input" id="sse_2">
+                            <label class="custom-control-label" for="sse_2">SSE</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+            <!--END: search2-->
+
+            <!-- search3 -->
+            <div id="search_3" class="card">
+            <div class="card-header" id="headingThree">
+                <h3>
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                    Sök 3
+                </button>
+                </h3>
+            </div>
+            
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionStep2">
+            <div class="card-body">
+                <div class="form-row align-items-center">
+                <div class="form-group col">
+                    <label for="point_3">Poäng</label>
+                    <input type="number" name="point_3" id="point_3" class="form-control" placeholder="0"/>
+                </div>
+                <div class="form-group col">
+                    <label for="error_3">Fel</label>
+                    <input type="number" name="error_3" id="error_3" class="form-control" placeholder="0"/>
+                </div>
+                </div>
+                <div class="form-row align-items-center">
+                    <div class="form-group col">
+                        <div>Tid</div>
+                        <div class="form-row input-time align-items-center">
+                            <input type="number" name="time_3_mm" id="time_3_mm" class="form-control col-sm-2" placeholder="mm"/>:
+                            <input type="number" name="time_3_ss" id="time_3_ss" class="form-control col-sm-2" placeholder="ss"/>,
+                            <input type="number" name="time_3_ms" id="time_3_ms" class="form-control col-sm-3" placeholder="000"/>
+                        </div>
+                    </div>
+                    <div class="form-group col">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="sse_3" class="custom-control-input" id="sse_3">
+                            <label class="custom-control-label" for="sse_3">SSE</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+            <!--END: search3-->
+
+            <!-- search4 -->
+            <div id="search_4" class="card">
+            <div class="card-header" id="headingFour">
+                <h3>
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                    Sök 4
+                </button>
+                </h3>
+            </div>
+                            
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionStep2">
+            <div class="card-body">
+                <div class="form-row align-items-center">
+                <div class="form-group col">
+                    <label for="point_4">Poäng</label>
+                    <input type="number" name="point_4" id="point_4" class="form-control" placeholder="0"/>
+                </div>
+                <div class="form-group col">
+                    <label for="error_4">Fel</label>
+                    <input type="number" name="error_4" id="error_4" class="form-control" placeholder="0"/>
+                </div>
+                </div>
+                <div class="form-row align-items-center">
+                    <div class="form-group col">
+                    <div>Tid</div>
+                    <div class="form-row input-time align-items-center">
+                        <input type="number" name="time_4_mm" id="time_4_mm" class="form-control col-sm-2" placeholder="mm"/>:
+                        <input type="number" name="time_4_ss" id="time_4_ss" class="form-control col-sm-2" placeholder="ss"/>,
+                        <input type="number" name="time_4_ms" id="time_4_ms" class="form-control col-sm-3" placeholder="000"/>
+                    </div>
+                    </div>
+                    <div class="form-group col">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="sse_4" class="custom-control-input" id="sse_4">
+                            <label class="custom-control-label" for="sse_4">SSE</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+            <!--END: search4-->
+
+            </form>
         </div>
 
-        <div id="search_2">
-            <h3>Sök 2</h3>
-            <div class="form-group">
-                <label for="point_2">Poäng</label>
-                <input type="number" name="point_2" id="point_2" class="form-control" placeholder="0"/>
-            </div>
-            <div>
-                <label for="error_2">Fel</label>
-                <input type="number" name="error_2" id="error_2"/>
-            </div>
-            <div>
-                <label for="time_2">Tid</label>
-                <input type="number" name="time_2_mm" id="time_2_mm"/>:
-                <input type="number" name="time_2_ss" id="time_2_ss"/>,
-                <input type="number" name="time_2_ms" id="time_2_ms"/>
-            </div>
-        </div>
-
-        <div id="search_3">
-            <h3>Sök 3</h3>
-            <div>
-                <label for="point_3">Poäng</label>
-                <input type="number" name="point_3" id="point_3"/>
-            </div>
-            <div>
-                <label for="error_3">Fel</label>
-                <input type="number" name="error_3" id="error_3"/>
-            </div>
-            <div>
-                <label for="time_3">Tid</label>
-                <input type="number" name="time_3_mm" id="time_3_mm"/>:
-                <input type="number" name="time_3_ss" id="time_3_ss"/>,
-                <input type="number" name="time_3_ms" id="time_3_ms"/>
-            </div>
-        </div>
-
-        <div id="search_4">
-            <h3>Sök 4</h3>
-            <div>
-                <label for="point_4">Poäng</label>
-                <input type="number" name="point_4" id="point_4"/>
-            </div>
-            <div>
-                <label for="error_4">Fel</label>
-                <input type="number" name="error_4" id="error_4"/>
-            </div>
-            <div>
-                <label for="time_4">Tid</label>
-                <input type="number" name="time_4_mm" id="time_4_mm"/>:
-                <input type="number" name="time_4_ss" id="time_4_ss"/>,
-                <input type="number" name="time_4_ms" id="time_4_ms"/>
-            </div>
-        </div>
-        </form>
         <!-- Step 3: Summary? -->
 
         <div id="step3">

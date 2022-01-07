@@ -8,7 +8,7 @@ $(function() {
         return false;
     });
 
-    $('#step2').hide();
+    // $('#step2').hide();
     $('#step3').hide();
 
     $('#buttonStep1').click(function() {
