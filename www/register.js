@@ -85,10 +85,18 @@ $(function() {
             allCollapsables(form, true);
         } else {
             $("#step2 :input").attr("disabled", true);
-            allCollapsables(form, true);
+            allCollapsables(form, false);
             $("#step3").show();
             $('#buttonStep2').hide();
         }
+    });
+
+    $('#cancel').click(function() {
+        let form = document.querySelector('#step2');
+        $("#step2 :input").attr("disabled", false);
+        $('#collapseOne').collapse();
+        $("#step3").hide();
+        $('#buttonStep2').show();
     });
 });
 
