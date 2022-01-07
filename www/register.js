@@ -87,6 +87,32 @@ $(function() {
         });
     }
 
+    function setSummary(form) {
+        for (let i = 1; i <= 4; i++) {
+            let si = parseInt(i);
+            let points = form.querySelector('#point_'+si).value;
+            let errors = form.querySelector('#error_'+si).value;
+            let mm = form.querySelector('#time_mm_'+si).value;
+            let ss = form.querySelector('#time_ss_'+si).value;
+            let ms = form.querySelector('#time_ms_'+si).value;
+            let sse = form.querySelector('#sse_'+si).value;
+            setSummary2(i, points, errors, mm, ss, ms, sse);
+        }
+    }
+
+    function setSummary2(nbrStr, points, errors, mm, ss, ms, sse) {
+        let si = parseInt(nbrStr);
+        $('#search_points_'+si).text(points+"p");
+        $('#search_errors_'+si).text(errors+"p");
+        let fmm = String(mm).padStart(2, '0');
+        let fss = String(ss).padStart(2, '0');
+        let fms = String(ms).padStart(2, '0');
+        $('#search_time_'+si).text(fmm+":"+fss+","+fms);
+        if (sse) {
+            $('#search_sse_'+si).text("sse");
+        }
+    }
+
     $('#buttonStep2').click(function() {
         let form = document.querySelector('#step2');
         if (!isValid(form)) {
@@ -95,6 +121,7 @@ $(function() {
         } else {
             $("#step2 :input").attr("disabled", true);
             allCollapsables(form, false);
+            setSummary(form);
             $("#step3").show();
             $('#buttonStep2').hide();
         }

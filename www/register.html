@@ -20,17 +20,17 @@
         <div class="form-row">
             <div class="form-group col">
                 <label for="name">Förare</label>
-                <input type="text" name="name" id="name" class="form-control" placeholder="Sara" aria-describedby="nameHelp" required/>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Sara" aria-describedby="nameHelp" required value="Sara"/>
                 <small id="nameHelp" class="form-text text-muted">Endast förnamn</small>
             </div>
             <div class="form-group col">
                 <label for="dog">Hund</label>
-                <input type="text" name="dog" id="dog" class="form-control" placeholder="Niko" required/>
+                <input type="text" name="dog" id="dog" class="form-control" placeholder="Niko" required value="Niko"/>
             </div>
             <div class="form-group col">
                 <div>Klass</div>
                 <div class="custom-control custom-radio">
-                    <input type="radio" id="nw1" name="nwClass" value="NW1" class="custom-control-input" required>
+                    <input type="radio" id="nw1" name="nwClass" value="NW1" class="custom-control-input" required checked="checked">
                     <label for="nw1" class="custom-control-label">NW1</label>
                 </div>
                 <div class="custom-control custom-radio">
@@ -53,7 +53,11 @@
             <!-- search1 -->
             <div id="search_1" class="card">
             <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                <h3>Sök 1</h3>
+                <span class="h3 col-md-4">Sök 1</span>
+                <span id="search_points_1"></span>
+                <span id="search_errors_1"></span>
+                <span id="search_time_1"></span>
+                <span id="search_sse_1"></span>
             </div>
             
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionStep2">
@@ -107,7 +111,11 @@
             <!-- search2 -->
             <div id="search_2" class="card">
             <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                <h3>Sök 2</h3>
+                <span class="h3 col-md-4">Sök 2</span>
+                <span id="search_points_2"></span>
+                <span id="search_errors_2"></span>
+                <span id="search_time_2"></span>
+                <span id="search_sse_2"></span>
             </div>
                 
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionStep2">
@@ -148,7 +156,7 @@
                 <div class="form-group col-md-2">
                     <div class="form-group">&nbsp;</div>
                     <div class="custom-control custom-checkbox float-md-right">
-                        <input type="checkbox" name="sse_2" class="custom-control-input" id="sse_1">
+                        <input type="checkbox" name="sse_2" class="custom-control-input" id="sse_2">
                         <label class="custom-control-label" for="sse_2">SSE</label>
                     </div>
                 </div>
@@ -161,7 +169,11 @@
             <!-- search3 -->
             <div id="search_3" class="card">
             <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                <h3>Sök 3</h3>
+                <span class="h3 col-md-4">Sök 3</span>
+                <span id="search_points_3"></span>
+                <span id="search_errors_3"></span>
+                <span id="search_time_3"></span>
+                <span id="search_sse_3"></span>
             </div>
             
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionStep2">
@@ -202,7 +214,7 @@
                 <div class="form-group col-md-2">
                     <div class="form-group">&nbsp;</div>
                     <div class="custom-control custom-checkbox float-md-right">
-                        <input type="checkbox" name="sse_3" class="custom-control-input" id="sse_1">
+                        <input type="checkbox" name="sse_3" class="custom-control-input" id="sse_3">
                         <label class="custom-control-label" for="sse_3">SSE</label>
                     </div>
                 </div>
@@ -215,7 +227,11 @@
             <!-- search4 -->
             <div id="search_4" class="card">
             <div class="card-header" id="headingFour" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-                <h3>Sök 4</h3>
+                <span class="h3 col-md-4">Sök 4</span>
+                <span id="search_points_4"></span>
+                <span id="search_errors_4"></span>
+                <span id="search_time_4"></span>
+                <span id="search_sse_4"></span>
             </div>
                             
             <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionStep2">
@@ -256,7 +272,7 @@
                 <div class="form-group col-md-2">
                     <div class="form-group">&nbsp;</div>
                     <div class="custom-control custom-checkbox float-md-right">
-                        <input type="checkbox" name="sse_4" class="custom-control-input" id="sse_1">
+                        <input type="checkbox" name="sse_4" class="custom-control-input" id="sse_4">
                         <label class="custom-control-label" for="sse_4">SSE</label>
                     </div>
                 </div>
