@@ -95,15 +95,15 @@ $(function() {
             let mm = form.querySelector('#time_mm_'+si).value;
             let ss = form.querySelector('#time_ss_'+si).value;
             let ms = form.querySelector('#time_ms_'+si).value;
-            let sse = form.querySelector('#sse_'+si).value;
+            let sse = form.querySelector('#sse_'+si).checked;
             setSummary2(i, points, errors, mm, ss, ms, sse);
         }
     }
 
     function setSummary2(nbrStr, points, errors, mm, ss, ms, sse) {
         let si = parseInt(nbrStr);
-        $('#search_points_'+si).text(points+"p");
-        $('#search_errors_'+si).text(errors+"p");
+        $('#search_points_'+si).text(Number(points)+"p");
+        $('#search_errors_'+si).text(Number(errors)+"p");
         let fmm = String(mm).padStart(2, '0');
         let fss = String(ss).padStart(2, '0');
         let fms = String(ms).padStart(2, '0');
