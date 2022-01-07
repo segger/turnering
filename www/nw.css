@@ -1,0 +1,19 @@
+html,
+body {
+    height: 100%;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    background: #000000;
+    color: white;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
