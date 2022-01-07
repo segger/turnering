@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <title>turnering.nosnord.com</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="nw.css">
     </head>
@@ -9,7 +10,7 @@
 
         <!-- HEADER -->
         <div class="header">
-            <div>Sara Lahti Nosnörd</div>
+            <a class="header" href="https://nosnord.com"><div>Sara Lahti Nosnörd</div></a>
         </div>
 
         <!-- Step 1-->
@@ -19,17 +20,17 @@
         <div class="form-row">
             <div class="form-group col">
                 <label for="name">Förare</label>
-                <input type="text" name="name" id="name" class="form-control" placeholder="Sara" aria-describedby="nameHelp" required value="Sara"/>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Sara" aria-describedby="nameHelp" required/>
                 <small id="nameHelp" class="form-text text-muted">Endast förnamn</small>
             </div>
             <div class="form-group col">
                 <label for="dog">Hund</label>
-                <input type="text" name="dog" id="dog" class="form-control" placeholder="Niko" required value="Niko"/>
+                <input type="text" name="dog" id="dog" class="form-control" placeholder="Niko" required/>
             </div>
             <div class="form-group col">
                 <div>Klass</div>
                 <div class="custom-control custom-radio">
-                    <input type="radio" id="nw1" name="nwClass" value="NW1" class="custom-control-input" required checked="checked">
+                    <input type="radio" id="nw1" name="nwClass" value="NW1" class="custom-control-input" required>
                     <label for="nw1" class="custom-control-label">NW1</label>
                 </div>
                 <div class="custom-control custom-radio">
@@ -39,6 +40,7 @@
             </div>
             <div class="form-group col align-self-center">
                 <button id="buttonStep1" type="button" class="btn btn-primary">Ok</button>
+                <button id="editStep1" type="button" class="btn btn-secondary">Ändra ekipage</button>
             </div>
         </div>
         </form>
@@ -69,24 +71,33 @@
                     <input type="number" name="error_1" id="error_1" class="form-control" placeholder="0"/>
                 </div>
                 </div>
-                <div class="form-row align-items-center">
-                    <div class="form-group col">
-                        <div>Tid</div>
-                        <div class="form-row input-time align-items-center">
-                            <input type="number" name="time_mm_1" id="time_mm_1" class="form-control col-sm-2" placeholder="mm"/>:
-                            <input type="number" name="time_ss_1" id="time_ss_1" class="form-control col-sm-2" placeholder="ss"/>,
-                            <input type="number" name="time_ms_1" id="time_ms_1" class="form-control col-sm-3" placeholder="00"/>
-                            <div class="invalid-feedback">
-                                Använd format minuter : sekunder , millisekunder
-                            </div>
+
+                <div class="form-row">
+                <div class="form-group col-md-8">
+                    <label for="input-group">Tid</label>
+                    <div class="input-group">
+                        <input type="number" name="time_mm_1" id="time_mm_1" class="form-control" placeholder="mm">
+                        <div class="input-group-append">
+                            <span class="input-group-text">:</span>
+                        </div>
+                        <input type="number" name="time_ss_1" id="time_ss_1" class="form-control" placeholder="ss">
+                        <div class="input-group-append">
+                            <span class="input-group-text">,</span>
+                        </div>
+                        <input type="number" name="time_ms_1" id="time_ms_1" class="form-control" placeholder="00">
+                        <div class="invalid-feedback">
+                            Använd format minuter : sekunder , millisekunder
                         </div>
                     </div>
-                    <div class="form-group col">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" name="sse_1" class="custom-control-input" id="sse_1">
-                            <label class="custom-control-label" for="sse_1">SSE</label>
-                        </div>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <div class="form-group">&nbsp;</div>
+                    <div class="custom-control custom-checkbox float-md-right">
+                        <input type="checkbox" name="sse_1" class="custom-control-input" id="sse_1">
+                        <label class="custom-control-label" for="sse_1">SSE</label>
                     </div>
+                </div>
                 </div>
             </div>
             </div>
@@ -114,24 +125,33 @@
                     <input type="number" name="error_1" id="error_2" class="form-control" placeholder="0"/>
                 </div>
                 </div>
-                <div class="form-row align-items-center">
-                    <div class="form-group col">
-                        <div>Tid</div>
-                        <div class="form-row input-time align-items-center">
-                            <input type="number" name="time_mm_2" id="time_mm_2" class="form-control col-sm-2" placeholder="mm"/>:
-                            <input type="number" name="time_ss_2" id="time_ss_2" class="form-control col-sm-2" placeholder="ss"/>,
-                            <input type="number" name="time_ms_2" id="time_ms_2" class="form-control col-sm-3" placeholder="00"/>
-                            <div class="invalid-feedback">
-                                Använd format minuter : sekunder , millisekunder
-                            </div>
+                
+                <div class="form-row">
+                <div class="form-group col-md-8">
+                    <label for="input-group">Tid</label>
+                    <div class="input-group">
+                        <input type="number" name="time_mm_2" id="time_mm_2" class="form-control" placeholder="mm">
+                        <div class="input-group-append">
+                            <span class="input-group-text">:</span>
+                        </div>
+                        <input type="number" name="time_ss_2" id="time_ss_2" class="form-control" placeholder="ss">
+                        <div class="input-group-append">
+                            <span class="input-group-text">,</span>
+                        </div>
+                        <input type="number" name="time_ms_2" id="time_ms_2" class="form-control" placeholder="00">
+                        <div class="invalid-feedback">
+                            Använd format minuter : sekunder , millisekunder
                         </div>
                     </div>
-                    <div class="form-group col">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" name="sse_2" class="custom-control-input" id="sse_2">
-                            <label class="custom-control-label" for="sse_2">SSE</label>
-                        </div>
+                </div>
+    
+                <div class="form-group col-md-2">
+                    <div class="form-group">&nbsp;</div>
+                    <div class="custom-control custom-checkbox float-md-right">
+                        <input type="checkbox" name="sse_2" class="custom-control-input" id="sse_1">
+                        <label class="custom-control-label" for="sse_2">SSE</label>
                     </div>
+                </div>
                 </div>
             </div>
             </div>
@@ -159,24 +179,33 @@
                     <input type="number" name="error_3" id="error_3" class="form-control" placeholder="0"/>
                 </div>
                 </div>
-                <div class="form-row align-items-center">
-                    <div class="form-group col">
-                        <div>Tid</div>
-                        <div class="form-row input-time align-items-center">
-                            <input type="number" name="time_mm_3" id="time_mm_3" class="form-control col-sm-2" placeholder="mm"/>:
-                            <input type="number" name="time_ss_3" id="time_ss_3" class="form-control col-sm-2" placeholder="ss"/>,
-                            <input type="number" name="time_ms_3" id="time_ms_3" class="form-control col-sm-3" placeholder="00"/>
-                            <div class="invalid-feedback">
-                                Antal tidsformat minuter : sekunder , millisekunder
-                            </div>
+                
+                <div class="form-row">
+                <div class="form-group col-md-8">
+                    <label for="input-group">Tid</label>
+                    <div class="input-group">
+                        <input type="number" name="time_mm_3" id="time_mm_3" class="form-control" placeholder="mm">
+                        <div class="input-group-append">
+                            <span class="input-group-text">:</span>
+                        </div>
+                        <input type="number" name="time_ss_3" id="time_ss_3" class="form-control" placeholder="ss">
+                        <div class="input-group-append">
+                            <span class="input-group-text">,</span>
+                        </div>
+                        <input type="number" name="time_ms_3" id="time_ms_3" class="form-control" placeholder="00">
+                        <div class="invalid-feedback">
+                            Använd format minuter : sekunder , millisekunder
                         </div>
                     </div>
-                    <div class="form-group col">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" name="sse_3" class="custom-control-input" id="sse_3">
-                            <label class="custom-control-label" for="sse_3">SSE</label>
-                        </div>
+                </div>
+    
+                <div class="form-group col-md-2">
+                    <div class="form-group">&nbsp;</div>
+                    <div class="custom-control custom-checkbox float-md-right">
+                        <input type="checkbox" name="sse_3" class="custom-control-input" id="sse_1">
+                        <label class="custom-control-label" for="sse_3">SSE</label>
                     </div>
+                </div>
                 </div>
             </div>
             </div>
@@ -204,24 +233,33 @@
                     <input type="number" name="error_4" id="error_4" class="form-control" placeholder="0"/>
                 </div>
                 </div>
-                <div class="form-row align-items-center">
-                    <div class="form-group col">
-                    <div>Tid</div>
-                    <div class="form-row input-time align-items-center">
-                        <input type="number" name="time_mm_4" id="time_mm_4" class="form-control col-sm-2" placeholder="mm"/>:
-                        <input type="number" name="time_ss_4" id="time_ss_4" class="form-control col-sm-2" placeholder="ss"/>,
-                        <input type="number" name="time_ms_4" id="time_ms_4" class="form-control col-sm-3" placeholder="00"/>
+                
+                <div class="form-row">
+                <div class="form-group col-md-8">
+                    <label for="input-group">Tid</label>
+                    <div class="input-group">
+                        <input type="number" name="time_mm_4" id="time_mm_4" class="form-control" placeholder="mm">
+                        <div class="input-group-append">
+                            <span class="input-group-text">:</span>
+                        </div>
+                        <input type="number" name="time_ss_4" id="time_ss_4" class="form-control" placeholder="ss">
+                        <div class="input-group-append">
+                            <span class="input-group-text">,</span>
+                        </div>
+                        <input type="number" name="time_ms_4" id="time_ms_4" class="form-control" placeholder="00">
                         <div class="invalid-feedback">
                             Använd format minuter : sekunder , millisekunder
                         </div>
                     </div>
+                </div>
+    
+                <div class="form-group col-md-2">
+                    <div class="form-group">&nbsp;</div>
+                    <div class="custom-control custom-checkbox float-md-right">
+                        <input type="checkbox" name="sse_4" class="custom-control-input" id="sse_1">
+                        <label class="custom-control-label" for="sse_4">SSE</label>
                     </div>
-                    <div class="form-group col">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" name="sse_4" class="custom-control-input" id="sse_4">
-                            <label class="custom-control-label" for="sse_4">SSE</label>
-                        </div>
-                    </div>
+                </div>
                 </div>
             </div>
             </div>
@@ -240,7 +278,7 @@
         <!-- Step 3: Summary? -->
 
         <div id="step3" class="text-center">
-            <button id="cancel" type="button" class="btn btn-secondary">Ångra</button>
+            <button id="cancel" type="button" class="btn btn-secondary">Ändra</button>
             <button id="save" type="button" class="btn btn-success">Spara</button>
         </div>
 

@@ -11,6 +11,10 @@ body {
     font-size: 30px;
     margin-bottom: 30px;
 }
+a.header {
+    color: white;
+    text-decoration: none;
+}
 
 div.input-time {
     margin-left: 0;

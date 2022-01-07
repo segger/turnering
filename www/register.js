@@ -8,6 +8,7 @@ $(function() {
         return false;
     });
 
+    $('#editStep1').hide();
     $('#accordionStep2').hide();
     $('#step3').hide();
 
@@ -18,8 +19,16 @@ $(function() {
         } else {
             $("#step1 :input").attr("disabled", true);
             $('#buttonStep1').hide();
+            $('#editStep1').show();
+            $('#editStep1').attr("disabled", false);
             $('#accordionStep2').show();
         }
+    });
+
+    $('#editStep1').click(function() {
+        $("#step1 :input").attr("disabled", false);
+        $('#buttonStep1').show();
+        $('#editStep1').hide();
     });
 
     function isValid(form) {
