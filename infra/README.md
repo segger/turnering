@@ -53,3 +53,9 @@ sudo setcap CAP_NET_BIND_SERVICE=+eip $(which caddy)
 ```
 caddy stop | start
 ```
+
+```
+root * /www
+file_server
+reverse_proxy /api/* localhost:8084
+```

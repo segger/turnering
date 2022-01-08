@@ -1,0 +1,22 @@
+{
+	"firstName": "Sara",
+	"dogName": "Niko",
+	"classNbr": 1,
+	"contestId": "",
+	"eventResult": [
+		{
+			"eventName": "Sök 1",
+			"points": 25.0,
+			"errors": 0,
+			"time": 20498,
+			"sse": false
+		},
+		{
+			"eventName": "Sök 2",
+			"points": 0.0,
+			"errors": 0,
+			"time": 0,
+			"sse": false
+		}
+	]
+}

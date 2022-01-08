@@ -20,21 +20,21 @@
         <div class="form-row">
             <div class="form-group col">
                 <label for="name">Förare</label>
-                <input type="text" name="name" id="name" class="form-control" placeholder="Sara" aria-describedby="nameHelp" required value="Sara"/>
+                <input type="text" name="firstName" id="firstName" class="form-control" placeholder="Sara" aria-describedby="nameHelp" required value="Sara"/>
                 <small id="nameHelp" class="form-text text-muted">Endast förnamn</small>
             </div>
             <div class="form-group col">
                 <label for="dog">Hund</label>
-                <input type="text" name="dog" id="dog" class="form-control" placeholder="Niko" required value="Niko"/>
+                <input type="text" name="dogName" id="dogName" class="form-control" placeholder="Niko" required value="Niko"/>
             </div>
             <div class="form-group col">
                 <div>Klass</div>
                 <div class="custom-control custom-radio">
-                    <input type="radio" id="nw1" name="nwClass" value="NW1" class="custom-control-input" required checked="checked">
+                    <input type="radio" id="nw1" name="classNbr" value="NW1" class="custom-control-input" required checked="checked">
                     <label for="nw1" class="custom-control-label">NW1</label>
                 </div>
                 <div class="custom-control custom-radio">
-                    <input type="radio" id="nw2" name="nwClass" value="NW2" class="custom-control-input" required>
+                    <input type="radio" id="nw2" name="classNbr" value="NW2" class="custom-control-input" required>
                     <label for="nw2" class="custom-control-label">NW2</label>
                 </div>
             </div>
@@ -130,7 +130,7 @@
                 </div>
                 <div class="form-group col">
                     <label for="error_2">Fel</label>
-                    <input type="number" name="error_1" id="error_2" class="form-control" placeholder="0"/>
+                    <input type="number" name="error_2" id="error_2" class="form-control" placeholder="0"/>
                 </div>
                 </div>
                 
@@ -300,7 +300,8 @@
 
         </div>
 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 

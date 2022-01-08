@@ -4,13 +4,75 @@ $(function() {
 
     $('#save').click(function(){ 
         Cookies.remove('register');
-        window.location.href = "/";
+
+        $("#step1 :input").attr("disabled", false);
+        let participant = $('#step1').serializeArray();
+        $("#step1 :input").attr("disabled", true);
+
+        $("#step2 :input").attr("disabled", false);
+        let results = $('#step2').serializeArray();
+        $("#step2 :input").attr("disabled", true);
+
+        var resultData = {};
+        $(results).each(function(index, obj) {
+            resultData[obj.name] = obj.value;
+        });
+
+        let search = [];
+        for (let i = 1; i <= 4; i++) {
+            let si = parseInt(i);
+            let points = Number(resultData['point_'+si]);
+            let errors = Number(resultData['error_'+si]);
+            let mm = resultData['time_mm_'+si];
+            let ss = resultData['time_ss_'+si];
+            let ms = resultData['time_ms_'+si];
+            let time = Number(mm)*60*1000+Number(ss)*1000+Number(ms);
+            let sse = resultData['sse_'+si] ? true : false;
+            var searchObj = {
+                "points": points,
+                "errors": errors,
+                "time": time,
+                "sse": sse
+            };
+            search.push(searchObj);
+        }
+
+        var participantObj = {};
+        $(participant).each(function(index, obj){
+            participantObj[obj.name] = obj.value;
+        });
+
+        var data = {};
+        data['Participant'] = participantObj;
+        data['EventResultList'] = search;
+
+        console.log(JSON.stringify(data));
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/register',
+            data: JSON.stringify(data),
+            error: function(e) {
+                console.log(e);
+            },
+            contentType: "application/json"
+        });
+
+        // window.location.href = "/";
         return false;
     });
 
     $('#editStep1').hide();
     $('#accordionStep2').hide();
     $('#step3').hide();
+
+    /*
+    function generateStep2() {
+        for (let i = 1; i <= 4; i++) {
+            let outer = $("div").attr("id", "append_"+parseInt(i));
+            $('#step2').append(outer);
+        }
+    } */
 
     $('#buttonStep1').click(function() {
         let form = document.querySelector('#step1');
@@ -22,6 +84,7 @@ $(function() {
             $('#editStep1').show();
             $('#editStep1').attr("disabled", false);
             $('#accordionStep2').show();
+            // generateStep2();
         }
     });
 
@@ -121,7 +184,7 @@ $(function() {
         } else {
             $("#step2 :input").attr("disabled", true);
             allCollapsables(form, false);
-            setSummary(form);
+            // setSummary(form);
             $("#step3").show();
             $('#buttonStep2').hide();
         }
