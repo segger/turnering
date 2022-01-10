@@ -92,10 +92,9 @@ func GetContestById(id string) (models.Contest, error) {
 }
 
 func AddProtocol(protocol models.Protocol) {
-	contestId := "27eec793-a08d-4b00-969a-e7379e4b2643"
 	participantId := createParticipant(protocol.Participant)
 	for _, result := range protocol.EventResultList {
-		createResult(participantId, contestId, result)
+		createResult(participantId, protocol.ContestId, result)
 	}
 }
 

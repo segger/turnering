@@ -57,6 +57,7 @@ $(function() {
         });
 
         var data = {};
+        data['contestId'] = contestId;
         data['Participant'] = participantObj;
         data['EventResultList'] = search;
 
