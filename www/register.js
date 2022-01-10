@@ -21,6 +21,7 @@ $(function() {
         let search = [];
         for (let i = 1; i <= 4; i++) {
             let si = parseInt(i);
+            let eventName = $('#search_event_name_'+si).text();
             let points = Number(resultData['point_'+si]);
             let errors = Number(resultData['error_'+si]);
             let mm = resultData['time_mm_'+si];
@@ -29,6 +30,7 @@ $(function() {
             let time = Number(mm)*60*1000+Number(ss)*1000+Number(ms);
             let sse = resultData['sse_'+si] ? true : false;
             var searchObj = {
+                "eventName": eventName,
                 "points": points,
                 "errors": errors,
                 "time": time,

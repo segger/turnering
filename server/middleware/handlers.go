@@ -36,6 +36,8 @@ func RegisterResult(w http.ResponseWriter, r *http.Request) {
 
 	log.Print(register)
 
+	database.AddProtocol(register)
+
 	res := response{
 		Message: "Protokoll registrerat",
 	}

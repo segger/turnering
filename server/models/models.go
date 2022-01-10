@@ -4,7 +4,7 @@ type Participant struct {
 	Id        string `json:"id"`
 	FirstName string `json:"firstName"`
 	DogName   string `json:"dogName"`
-	ClassNbr  string `json:"classNbr"`
+	ClassNbr  int8   `json:"classNbr"`
 }
 
 type Contest struct {

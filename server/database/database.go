@@ -6,7 +6,9 @@ import (
 	"log"
 	"os"
 	"server/models"
+	"time"
 
+	"github.com/google/uuid"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
@@ -67,4 +69,52 @@ func GetAllContest() ([]models.Contest, error) {
 		contests = append(contests, contest)
 	}
 	return contests, err
+}
+
+func AddProtocol(protocol models.Protocol) {
+	contestId := "27eec793-a08d-4b00-969a-e7379e4b2643"
+	participantId := createParticipant(protocol.Participant)
+	for _, result := range protocol.EventResultList {
+		createResult(participantId, contestId, result)
+	}
+}
+
+func createParticipant(participant models.Participant) string {
+	db := createConnection()
+
+	defer db.Close()
+
+	sqlStatement := `INSERT INTO participant (id, first_name, dog_name, class_nbr) VALUES ($1, $2, $3, $4)`
+
+	participantId := uuid.New()
+	_, err := db.Exec(sqlStatement, participantId, participant.FirstName, participant.DogName, participant.ClassNbr)
+	if err != nil {
+		panic(err)
+	}
+
+	return participantId.String()
+}
+
+func createResult(participant string, contest string, result models.EventResult) string {
+	db := createConnection()
+
+	defer db.Close()
+
+	sqlStatement := `INSERT INTO result
+		(id, created_at, deleted, participant_id, contest_id, 
+		event_name, points, errors, time, sse)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`
+
+	resultId := uuid.New()
+	now := time.Now()
+	participantId, err := uuid.Parse(participant)
+	contestId, err := uuid.Parse(contest)
+
+	_, err = db.Exec(sqlStatement, resultId, now, false, participantId, contestId,
+		result.EventName, result.Points, result.Errors, result.Time, result.Sse)
+	if err != nil {
+		panic(err)
+	}
+
+	return resultId.String()
 }
