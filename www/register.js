@@ -73,7 +73,7 @@ $(function() {
             contentType: "application/json"
         });
 
-        // window.location.href = "/";
+        window.location.href = "/";
         return false;
     });
 

@@ -15,7 +15,7 @@ import (
 
 const (
 	host     = "localhost"
-	port     = 5555
+	port     = 5432
 	user     = "nosework"
 	password = "secret"
 	dbname   = "nosework"
@@ -27,8 +27,9 @@ func createConnection() *sql.DB {
 		log.Fatalf("Error loading .env file")
 	}
 
+	port := os.Getenv("DB_PORT")
 	password := os.Getenv("DB_PASSWORD")
-	psqlConfig := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+	psqlConfig := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		host, port, user, password, dbname)
 
 	db, err := sql.Open("postgres", psqlConfig)
