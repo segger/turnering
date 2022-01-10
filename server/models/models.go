@@ -8,8 +8,9 @@ type Participant struct {
 }
 
 type Contest struct {
-	Id   string `json:"id"`
-	Name string `json:"name"`
+	Id      string `json:"id"`
+	Name    string `json:"name"`
+	Enabled bool   `json:"enabled"`
 }
 
 type Protocol struct {

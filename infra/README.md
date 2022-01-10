@@ -17,6 +17,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 | ----- | ---- |
 | id    | uuid |
 | name  | varchar(100) |
+| enabled | boolean |
 
 contest-code?
 

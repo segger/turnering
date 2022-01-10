@@ -1,9 +1,21 @@
 $(function() {
-    let cookie = Cookies.get('register');
-    console.log(cookie);
+    let contestId = Cookies.get('registerId');
+
+    $.ajax({
+        type: 'GET',
+        url: '/api/contests/'+contestId,
+        dataType: 'json',
+        success: function(data) {
+            $('#contestName').text(data.name);
+        },
+        error: function(error) {
+            // console.error(error);
+            window.location.href = "/";
+        },
+    });
 
     $('#save').click(function(){ 
-        Cookies.remove('register');
+        Cookies.remove('registerId');
 
         $("#step1 :input").attr("disabled", false);
         let participant = $('#step1').serializeArray();

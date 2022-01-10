@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"server/database"
 	"server/models"
+
+	"github.com/gorilla/mux"
 )
 
 type response struct {
@@ -13,13 +15,24 @@ type response struct {
 	Message string `json:"message,omitempty"`
 }
 
-func GetAllContest(w http.ResponseWriter, r *http.Request) {
+func GetAllEnabledContest(w http.ResponseWriter, r *http.Request) {
 
-	contests, err := database.GetAllContest()
+	contests, err := database.GetAllContest(true)
 	if err != nil {
 		log.Printf("Unable to get all contests. %v", err)
 	}
 	json.NewEncoder(w).Encode(contests)
+}
+
+func GetContestById(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	contestId := params["contestId"]
+
+	contest, err := database.GetContestById(contestId)
+	if err != nil {
+		log.Printf("Unable to get contest. %v", err)
+	}
+	json.NewEncoder(w).Encode(contest)
 }
 
 func RegisterResult(w http.ResponseWriter, r *http.Request) {

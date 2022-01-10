@@ -43,18 +43,18 @@ func createConnection() *sql.DB {
 	return db
 }
 
-func GetAllContest() ([]models.Contest, error) {
+func GetAllContest(enabled bool) ([]models.Contest, error) {
 	db := createConnection()
 
 	defer db.Close()
 
 	var contests []models.Contest
 
-	sqlStatement := `SELECT * FROM contest`
+	sqlStatement := `SELECT * FROM contest WHERE enabled=$1`
 
-	rows, err := db.Query(sqlStatement)
+	rows, err := db.Query(sqlStatement, enabled)
 	if err != nil {
-		log.Fatalf("Unable to execute query. %v", err)
+		log.Printf("Unable to execute query. %v", err)
 	}
 
 	defer rows.Close()
@@ -62,13 +62,33 @@ func GetAllContest() ([]models.Contest, error) {
 	for rows.Next() {
 		var contest models.Contest
 
-		err = rows.Scan(&contest.Id, &contest.Name)
+		err = rows.Scan(&contest.Id, &contest.Name, &contest.Enabled)
 		if err != nil {
-			log.Fatalf("Unable to scan row. %v", err)
+			log.Printf("Unable to scan row. %v", err)
 		}
 		contests = append(contests, contest)
 	}
 	return contests, err
+}
+
+func GetContestById(id string) (models.Contest, error) {
+	db := createConnection()
+
+	defer db.Close()
+
+	var contest models.Contest
+	sqlStatement := `SELECT * FROM contest WHERE id=$1`
+	row := db.QueryRow(sqlStatement, id)
+	err := row.Scan(&contest.Id, &contest.Name, &contest.Enabled)
+	switch err {
+	case sql.ErrNoRows:
+		return contest, nil
+	case nil:
+		return contest, nil
+	default:
+		log.Printf("Unable to scan row %v", err)
+	}
+	return contest, err
 }
 
 func AddProtocol(protocol models.Protocol) {
