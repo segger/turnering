@@ -1,6 +1,6 @@
 $(function() {
     let contestId = Cookies.get('registerId');
-
+    
     $.ajax({
         type: 'GET',
         url: '/api/contests/'+contestId,
@@ -14,92 +14,22 @@ $(function() {
         },
     });
 
-    $('#save').click(function(){ 
-        Cookies.remove('registerId');
-
-        $("#step1 :input").attr("disabled", false);
-        let participant = $('#step1').serializeArray();
-        $("#step1 :input").attr("disabled", true);
-
-        $("#step2 :input").attr("disabled", false);
-        let results = $('#step2').serializeArray();
-        $("#step2 :input").attr("disabled", true);
-
-        var resultData = {};
-        $(results).each(function(index, obj) {
-            resultData[obj.name] = obj.value;
-        });
-
-        let search = [];
-        for (let i = 1; i <= 4; i++) {
-            let si = parseInt(i);
-            let eventName = $('#search_event_name_'+si).text();
-            let points = Number(resultData['point_'+si]);
-            let errors = Number(resultData['error_'+si]);
-            let mm = resultData['time_mm_'+si];
-            let ss = resultData['time_ss_'+si];
-            let ms = resultData['time_ms_'+si];
-            let time = Number(mm)*60*1000+Number(ss)*1000+Number(ms);
-            let sse = resultData['sse_'+si] ? true : false;
-            var searchObj = {
-                "eventName": eventName,
-                "points": points,
-                "errors": errors,
-                "time": time,
-                "sse": sse
-            };
-            search.push(searchObj);
-        }
-
-        var participantObj = {};
-        $(participant).each(function(index, obj){
-            participantObj[obj.name] = obj.value;
-        });
-
-        var data = {};
-        data['contestId'] = contestId;
-        data['Participant'] = participantObj;
-        data['EventResultList'] = search;
-
-        console.log(JSON.stringify(data));
-
-        $.ajax({
-            type: 'POST',
-            url: '/api/register',
-            data: JSON.stringify(data),
-            error: function(e) {
-                console.log(e);
-            },
-            contentType: "application/json"
-        });
-
-        window.location.href = "/";
-        return false;
-    });
-
     $('#editStep1').hide();
     $('#accordionStep2').hide();
     $('#step3').hide();
-
-    /*
-    function generateStep2() {
-        for (let i = 1; i <= 4; i++) {
-            let outer = $("div").attr("id", "append_"+parseInt(i));
-            $('#step2').append(outer);
-        }
-    } */
 
     $('#buttonStep1').click(function() {
         let form = document.querySelector('#step1');
         if (!form.checkValidity()) {
             form.classList.add('was-validated');
         } else {
+            let classNbr = $('input[name="classNbr"]:checked').val();
+            generateStep2(classNbr);
             $("#step1 :input").attr("disabled", true);
             $('#buttonStep1').hide();
             $('#editStep1').show();
             $('#editStep1').attr("disabled", false);
             $('#accordionStep2').show();
-            // generateStep2();
         }
     });
 
@@ -109,6 +39,25 @@ $(function() {
         $('#editStep1').hide();
     });
 
+    function createCard(searchData) {
+        var template = window.createSearchCard(searchData);
+        return $(template.join(''));
+    }
+
+    function generateStep2(classNbr) {
+        let nbrOfSearches = classNbr == 1 ? 4 : 3;
+        var search = [];
+        for (let i = 1; i <= nbrOfSearches; i++) {
+            search.push({"name":"Sök "+i, "order": i});
+        }
+        var cards = $();
+        search.forEach(function(item, i) {
+            cards = cards.add(createCard(item));
+        });
+        $('#search_steps').html(cards);
+        $('#collapse1').addClass("show");
+    }
+    
     function isValid(form) {
         let valid = true;
         let points = form.querySelectorAll("[id^='point']");
@@ -180,12 +129,12 @@ $(function() {
 
     function writeSummary(nbrStr, points, errors, mm, ss, ms, sse) {
         let si = parseInt(nbrStr);
-        $('#search_points_'+si).text(Number(points)+"p");
-        $('#search_errors_'+si).text(Number(errors)+"p");
+        $('#search_points_'+si).text(Number(points)+"p ");
+        $('#search_errors_'+si).text(Number(errors)+"p ");
         let fmm = String(mm).padStart(2, '0');
         let fss = String(ss).padStart(2, '0');
         let fms = String(ms).padStart(2, '0');
-        $('#search_time_'+si).text(fmm+":"+fss+","+fms);
+        $('#search_time_'+si).text(fmm+":"+fss+","+fms+" ");
         if (sse) {
             $('#search_sse_'+si).text("sse");
         }
@@ -205,10 +154,71 @@ $(function() {
         }
     });
 
+    $('#save').click(function(){ 
+        Cookies.remove('registerId');
+
+        $("#step1 :input").attr("disabled", false);
+        let participant = $('#step1').serializeArray();
+        $("#step1 :input").attr("disabled", true);
+
+        $("#step2 :input").attr("disabled", false);
+        let results = $('#step2').serializeArray();
+        $("#step2 :input").attr("disabled", true);
+
+        var resultData = {};
+        $(results).each(function(index, obj) {
+            resultData[obj.name] = obj.value;
+        });
+
+        let search = [];
+        for (let i = 1; i <= 4; i++) {
+            let si = parseInt(i);
+            let eventName = $('#search_event_name_'+si).text();
+            let points = Number(resultData['point_'+si]);
+            let errors = Number(resultData['error_'+si]);
+            let mm = resultData['time_mm_'+si];
+            let ss = resultData['time_ss_'+si];
+            let ms = resultData['time_ms_'+si];
+            let time = Number(mm)*60*1000+Number(ss)*1000+Number(ms);
+            let sse = resultData['sse_'+si] ? true : false;
+            var searchObj = {
+                "eventName": eventName,
+                "points": points,
+                "errors": errors,
+                "time": time,
+                "sse": sse
+            };
+            search.push(searchObj);
+        }
+
+        var participantObj = {};
+        $(participant).each(function(index, obj){
+            participantObj[obj.name] = obj.value;
+        });
+
+        var data = {};
+        data['contestId'] = contestId;
+        data['Participant'] = participantObj;
+        data['EventResultList'] = search;
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/register',
+            data: JSON.stringify(data),
+            error: function(e) {
+                console.log(e);
+            },
+            contentType: "application/json"
+        });
+
+        window.location.href = "/";
+        return false;
+    });
+
     $('#cancel').click(function() {
         let form = document.querySelector('#step2');
         $("#step2 :input").attr("disabled", false);
-        $('#collapseOne').collapse();
+        $('#collapse1').collapse();
         $("#step3").hide();
         $('#buttonStep2').show();
     });
