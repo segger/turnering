@@ -44,16 +44,16 @@ func createConnection() *sql.DB {
 	return db
 }
 
-func GetAllContest(enabled bool) ([]models.Contest, error) {
+func GetAllContest() ([]models.Contest, error) {
 	db := createConnection()
 
 	defer db.Close()
 
 	var contests []models.Contest
 
-	sqlStatement := `SELECT * FROM contest WHERE enabled=$1`
+	sqlStatement := `SELECT * FROM contest`
 
-	rows, err := db.Query(sqlStatement, enabled)
+	rows, err := db.Query(sqlStatement)
 	if err != nil {
 		log.Printf("Unable to execute query. %v", err)
 	}

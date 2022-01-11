@@ -15,13 +15,27 @@ type response struct {
 	Message string `json:"message,omitempty"`
 }
 
-func GetAllEnabledContest(w http.ResponseWriter, r *http.Request) {
-
-	contests, err := database.GetAllContest(true)
+func GetAllContest(w http.ResponseWriter, r *http.Request) {
+	contests, err := database.GetAllContest()
 	if err != nil {
 		log.Printf("Unable to get all contests. %v", err)
 	}
 	json.NewEncoder(w).Encode(contests)
+}
+
+func GetAllEnabledContest(w http.ResponseWriter, r *http.Request) {
+	contests, err := database.GetAllContest()
+	if err != nil {
+		log.Printf("Unable to get all contests. %v", err)
+	}
+	var enabledContests []models.Contest
+	for _, contest := range contests {
+		if contest.Enabled {
+			enabledContests = append(enabledContests, contest)
+		}
+	}
+
+	json.NewEncoder(w).Encode(enabledContests)
 }
 
 func GetContestById(w http.ResponseWriter, r *http.Request) {
