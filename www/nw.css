@@ -16,6 +16,10 @@ a.header {
     text-decoration: none;
 }
 
-div.input-time {
-    margin-left: 0;
+label.error {
+    color:#FF0000;
+}
+
+input.error {
+    border-color: #FF0000;
 }

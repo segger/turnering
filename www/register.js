@@ -56,51 +56,68 @@ $(function() {
         });
         $('#search_steps').html(cards);
         $('#collapse1').addClass("show");
+
+        setUpValidation();
     }
     
-    function isValid(form) {
-        let valid = true;
-        let points = form.querySelectorAll("[id^='point']");
-        points.forEach(field => {
-            if (field.value && field.value > 25) {
-                valid = false;
-                field.setCustomValidity("Too high value of points");
-            } else {
-                field.setCustomValidity("");
+    function setUpValidation() {
+        $('#step2').validate({
+            onsubmit: false,
+            errorPlacement: function ($error, $element) {
+                var name = $element.attr("name");
+                $(".invalid-" + name).html($error);
             }
         });
 
-        let mm = form.querySelectorAll("[id^='time_mm']");
-        mm.forEach(field => {
-            if (field.value && field.value > 15) {
-                valid = false;
-                field.setCustomValidity("Too high value of mm");
-            } else {
-                field.setCustomValidity("");
-            }
+        $('#step2 input[id^="point"]').each(function(){
+            $(this).rules( "add", {
+                number: true,
+                min: 0,
+                max: 25,
+                messages: {
+                    max: "Totalt antal poäng kan inte överstiga 25"
+                }
+            });
         });
 
-        let ss = form.querySelectorAll("[id^='time_ss']");
-        ss.forEach(field => {
-            if (field.value && field.value > 59) {
-                valid = false;
-                field.setCustomValidity("Too high value of ss");
-            } else {
-                field.setCustomValidity("");
-            }
+        $('#step2 input[id^="error"]').each(function(){
+            $(this).rules( "add", {
+                number: true
+            });
         });
 
-        let ms = form.querySelectorAll("[id^='time_ms']");
-        ms.forEach(field => {
-            if (field.value && field.value > 99) {
-                valid = false;
-                field.setCustomValidity("Too high value of ms");
-            } else {
-                field.setCustomValidity("");
-            }
+        $('#step2 input[id^="time_mm"]').each(function(){
+            $(this).rules( "add", {
+                number: true,
+                min: 0,
+                max: 15,
+                messages: {
+                    max: 'Använd format minuter : sekunder , hundradelar'
+                }
+            });
         });
 
-        return valid;
+        $('#step2 input[id^="time_ss"]').each(function(){
+            $(this).rules( "add", {
+                number: true,
+                min: 0,
+                max: 59,
+                messages: {
+                    max: 'Använd format minuter : sekunder , hundradelar'
+                }
+            });
+        });
+
+        $('#step2 input[id^="time_ms"]').each(function(){
+            $(this).rules( "add", {
+                number: true,
+                min: 0,
+                max: 99,
+                messages: {
+                    max: 'Använd format minuter : sekunder , hundradelar'
+                }
+            });
+        });
     }
 
     function allCollapsables(form, add) {
@@ -142,8 +159,7 @@ $(function() {
 
     $('#buttonStep2').click(function() {
         let form = document.querySelector('#step2');
-        if (!isValid(form)) {
-            form.classList.add('was-validated');
+        if (!$('#step2').valid()) {
             allCollapsables(form, true);
         } else {
             $("#step2 :input").attr("disabled", true);
