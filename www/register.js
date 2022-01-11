@@ -174,11 +174,11 @@ $(function() {
             let ss = form.querySelector('#time_ss_'+si).value;
             let ms = form.querySelector('#time_ms_'+si).value;
             let sse = form.querySelector('#sse_'+si).checked;
-            setSummary2(i, points, errors, mm, ss, ms, sse);
+            writeSummary(i, points, errors, mm, ss, ms, sse);
         }
     }
 
-    function setSummary2(nbrStr, points, errors, mm, ss, ms, sse) {
+    function writeSummary(nbrStr, points, errors, mm, ss, ms, sse) {
         let si = parseInt(nbrStr);
         $('#search_points_'+si).text(Number(points)+"p");
         $('#search_errors_'+si).text(Number(errors)+"p");
@@ -199,7 +199,7 @@ $(function() {
         } else {
             $("#step2 :input").attr("disabled", true);
             allCollapsables(form, false);
-            // setSummary(form);
+            setSummary(form);
             $("#step3").show();
             $('#buttonStep2').hide();
         }
