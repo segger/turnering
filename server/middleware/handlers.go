@@ -71,3 +71,14 @@ func RegisterResult(w http.ResponseWriter, r *http.Request) {
 
 	json.NewEncoder(w).Encode(res)
 }
+
+func GetResults(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	contestId := params["contestId"]
+
+	results, err := database.GetResultByContestId(contestId)
+	if err != nil {
+		log.Printf("Unable to get result. %v", err)
+	}
+	json.NewEncoder(w).Encode(results)
+}

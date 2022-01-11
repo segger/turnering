@@ -1,1 +1,0 @@
-search_template.js

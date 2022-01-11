@@ -92,6 +92,27 @@ func GetContestById(id string) (models.Contest, error) {
 	return contest, err
 }
 
+func GetResultByContestId(id string) ([]models.EventResult, error) {
+	db := createConnection()
+
+	defer db.Close()
+
+	var results []models.EventResult
+	sqlStatement := `SELECT event_name, points, errors, time, sse FROM result WHERE contest_id=$1`
+	rows, err := db.Query(sqlStatement, id)
+
+	for rows.Next() {
+		var result models.EventResult
+
+		err = rows.Scan(&result.EventName, &result.Points, &result.Errors, &result.Time, &result.Sse)
+		if err != nil {
+			log.Printf("Unable to scan row. %v", err)
+		}
+		results = append(results, result)
+	}
+	return results, err
+}
+
 func AddProtocol(protocol models.Protocol) {
 	participantId := createParticipant(protocol.Participant)
 	for _, result := range protocol.EventResultList {

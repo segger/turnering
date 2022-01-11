@@ -171,7 +171,7 @@ $(function() {
     });
 
     $('#save').click(function(){ 
-        Cookies.remove('registerId');
+        // Cookies.remove('registerId');
 
         $("#step1 :input").attr("disabled", false);
         let participant = $('#step1').serializeArray();
@@ -227,7 +227,7 @@ $(function() {
             contentType: "application/json"
         });
 
-        window.location.href = "/";
+        window.location.href = "/result.html";
         return false;
     });
 

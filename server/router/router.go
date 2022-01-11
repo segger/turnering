@@ -15,5 +15,6 @@ func Router() *mux.Router {
 
 	router.HandleFunc("/api/register", middleware.RegisterResult).Methods("POST")
 
+	router.HandleFunc("/api/results/{contestId:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}}", middleware.GetResults).Methods("GET")
 	return router
 }
