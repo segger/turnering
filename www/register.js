@@ -6,7 +6,8 @@ $(function() {
         url: '/api/contests/'+contestId,
         dataType: 'json',
         success: function(data) {
-            $('#contestName').text(data.name);
+            let backLink = '<a href="/">&lt;&lt;</a> ';
+            $('#contestName').html(backLink + data.name);
         },
         error: function(error) {
             // console.error(error);
@@ -131,8 +132,9 @@ $(function() {
         });
     }
 
-    function setSummary(form) {
-        for (let i = 1; i <= 4; i++) {
+    function setSummary(form, classNbr) {
+        let nbrOfSearches = classNbr == 1 ? 4 : 3;
+        for (let i = 1; i <= nbrOfSearches; i++) {
             let si = parseInt(i);
             let points = form.querySelector('#point_'+si).value;
             let errors = form.querySelector('#error_'+si).value;
@@ -162,9 +164,10 @@ $(function() {
         if (!$('#step2').valid()) {
             allCollapsables(form, true);
         } else {
+            let classNbr = $('input[name="classNbr"]:checked').val();
             $("#step2 :input").attr("disabled", true);
             allCollapsables(form, false);
-            setSummary(form);
+            setSummary(form, classNbr);
             $("#step3").show();
             $('#buttonStep2').hide();
         }
@@ -181,13 +184,16 @@ $(function() {
         let results = $('#step2').serializeArray();
         $("#step2 :input").attr("disabled", true);
 
+        let classNbr = $('input[name="classNbr"]:checked').val();
+        let nbrOfSearches = classNbr == 1 ? 4 : 3;
+
         var resultData = {};
         $(results).each(function(index, obj) {
             resultData[obj.name] = obj.value;
         });
 
         let search = [];
-        for (let i = 1; i <= 4; i++) {
+        for (let i = 1; i <= nbrOfSearches; i++) {
             let si = parseInt(i);
             let eventName = $('#search_event_name_'+si).text();
             let points = Number(resultData['point_'+si]);
@@ -227,7 +233,7 @@ $(function() {
             contentType: "application/json"
         });
 
-        window.location.href = "/result.html";
+        window.location.href = "/registered.html";
         return false;
     });
 

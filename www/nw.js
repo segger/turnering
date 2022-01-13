@@ -14,19 +14,19 @@ $(function() {
                     let contest = contestButtonOpen + disabled + '>' + contestButtonClose;
                     let result = contestButtonOpen + '>' + contestButtonClose;
                     $('#contests').append(contest);
-                    $('#results').append(result);
+                    $('#registered').append(result);
                 });
             } else {
                 let empty = '<div>Det finns inga tävlingar</div>';
                 $('#contests').append(empty);
-                $('#results').append(empty);
+                $('#registered').append(empty);
             }
         },
         error: function(error) {
             console.log(error);
             let empty = '<div>Något gick fel. Försök igen senare.</div>';
             $('#contests').append(empty);
-            $('#results').append(empty);
+            $('#registered').append(empty);
         }
     });
     
@@ -37,10 +37,10 @@ $(function() {
         return false;
     });
 
-    $('#results').on('click', 'button.register', function() {
+    $('#registered').on('click', 'button.register', function() {
         contestId = $(this).attr('id');
         Cookies.set('registerId',contestId);
-        window.location.href = "/result.html";
+        window.location.href = "/registered.html";
         return false;
     });
 });

@@ -92,19 +92,42 @@ func GetContestById(id string) (models.Contest, error) {
 	return contest, err
 }
 
-func GetResultByContestId(id string) ([]models.EventResult, error) {
+func GetRegisteredByContestId(id string) ([]models.ContestRegistered, error) {
 	db := createConnection()
 
 	defer db.Close()
 
-	var results []models.EventResult
-	sqlStatement := `SELECT event_name, points, errors, time, sse FROM result WHERE contest_id=$1`
+	var results []models.ContestRegistered
+	sqlStatement := `SELECT first_name, dog_name, class_nbr, event_name ` +
+		`FROM result JOIN participant ON result.participant_id=participant.id WHERE result.contest_id=$1 ORDER BY result.created_at desc`
 	rows, err := db.Query(sqlStatement, id)
 
 	for rows.Next() {
-		var result models.EventResult
+		var result models.ContestRegistered
 
-		err = rows.Scan(&result.EventName, &result.Points, &result.Errors, &result.Time, &result.Sse)
+		err = rows.Scan(&result.FirstName, &result.DogName, &result.ClassNbr, &result.EventName)
+		if err != nil {
+			log.Printf("Unable to scan row. %v", err)
+		}
+		results = append(results, result)
+	}
+	return results, err
+}
+
+func GetResultByContestId(id string) ([]models.ContestResult, error) {
+	db := createConnection()
+
+	defer db.Close()
+
+	var results []models.ContestResult
+	sqlStatement := `SELECT first_name, dog_name, class_nbr, event_name, points, errors, time, sse ` +
+		`FROM result JOIN participant ON result.participant_id=participant.id WHERE result.contest_id=$1`
+	rows, err := db.Query(sqlStatement, id)
+
+	for rows.Next() {
+		var result models.ContestResult
+
+		err = rows.Scan(&result.FirstName, &result.DogName, &result.ClassNbr, &result.EventName, &result.Points, &result.Errors, &result.Time, &result.Sse)
 		if err != nil {
 			log.Printf("Unable to scan row. %v", err)
 		}
