@@ -16,6 +16,16 @@ a.header {
     text-decoration: none;
 }
 
+.contestHeader {
+    display: flex;
+}
+a.home {
+    color: black;
+    text-decoration: none;
+    padding-right: 10px;
+    padding-top: 5px;
+}
+
 label.error {
     color:#FF0000;
 }

@@ -6,8 +6,7 @@ $(function() {
         url: '/api/contests/'+contestId,
         dataType: 'json',
         success: function(data) {
-            let backLink = '<a href="/">&lt;&lt;</a> ';
-            $('#contestName').html(backLink + data.name);
+            $('#contestName').html(" | " + data.name);
         },
         error: function(error) {
             // console.error(error);
