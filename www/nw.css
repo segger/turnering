@@ -1,6 +1,8 @@
 html,
 body {
     height: 100%;
+    display: flex; 
+    flex-direction: column;
 }
 
 .header {
@@ -14,6 +16,16 @@ body {
 a.header {
     color: white;
     text-decoration: none;
+}
+
+.footer{
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+    background: black;
+    color: white;
+    font-size: 15px;
+    padding: 30px 15px 15px 15px;
 }
 
 .contestHeader {
