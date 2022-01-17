@@ -21,6 +21,7 @@ type Protocol struct {
 
 type EventResult struct {
 	EventName string  `json:"eventName"`
+	ResultId  string  `json:"resultId"`
 	Points    float32 `json:"points"`
 	Errors    int32   `json:"errors"`
 	Time      int64   `json:"time"`

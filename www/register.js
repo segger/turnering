@@ -18,13 +18,39 @@ $(function() {
     $('#accordionStep2').hide();
     $('#step3').hide();
 
+    function getContestDataIfAvailable() {
+        let participant = $('#step1').serializeArray();
+        var participantObj = {};
+        $(participant).each(function(index, obj){
+            participantObj[obj.name] = obj.value;
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/participants',
+            data: JSON.stringify(participantObj),
+            contentType: "application/json",
+        }).then(function(data) {
+            let participant = JSON.parse(data);
+            return $.ajax({
+                type: 'GET',
+                url: '/api/results/'+contestId+'/participants/'+participant.id,
+                dataType: 'json'
+            })
+        }).done(function(data) {
+            // console.log('done ', data);
+            generateStep2(participantObj, data);
+        }).fail(function(err) {
+            console.log('err', err);
+        });
+    }
+
     $('#buttonStep1').click(function() {
         let form = document.querySelector('#step1');
         if (!form.checkValidity()) {
             form.classList.add('was-validated');
         } else {
-            let classNbr = $('input[name="classNbr"]:checked').val();
-            generateStep2(classNbr);
+            getContestDataIfAvailable();
             $("#step1 :input").attr("disabled", true);
             $('#buttonStep1').hide();
             $('#editStep1').show();
@@ -44,11 +70,31 @@ $(function() {
         return $(template.join(''));
     }
 
-    function generateStep2(classNbr) {
-        let nbrOfSearches = classNbr == 1 ? 4 : 3;
+    function generateStep2(participant, data) {
+        let nbrOfSearches = participant.classNbr == '1' ? 4 : 3;
         var search = [];
         for (let i = 1; i <= nbrOfSearches; i++) {
-            search.push({"name":"Sök "+i, "order": i});
+            let resultId = data ? data[i-1].resultId : null;
+            let points = data ? data[i-1].points : 0;
+            let errors = data ? data[i-1].errors : 0;
+
+            let ticks = data ? data[i-1].time : 0;
+            let mm = Math.floor(ticks / (60*100));
+            let ss = Math.floor((ticks / 100) % 60);
+            let ms = ticks % 100;
+
+            let sse = data ? data[i-1].sse : false;
+            search.push({
+                "resultId": resultId,
+                "name":"Sök "+i,
+                "order": i,
+                "points": points,
+                "errors": errors,
+                "mm": mm,
+                "ss": ss,
+                "ms": ms,
+                "sse": sse
+            });
         }
         var cards = $();
         search.forEach(function(item, i) {
@@ -195,15 +241,17 @@ $(function() {
         for (let i = 1; i <= nbrOfSearches; i++) {
             let si = parseInt(i);
             let eventName = $('#search_event_name_'+si).text();
+            let resultId = resultData['result_id_'+si];
             let points = Number(resultData['point_'+si]);
             let errors = Number(resultData['error_'+si]);
             let mm = resultData['time_mm_'+si];
             let ss = resultData['time_ss_'+si];
             let ms = resultData['time_ms_'+si];
-            let time = Number(mm)*60*1000+Number(ss)*1000+Number(ms);
+            let time = Number(mm)*60*100+Number(ss)*100+Number(ms);
             let sse = resultData['sse_'+si] ? true : false;
             var searchObj = {
                 "eventName": eventName,
+                "resultId": resultId,
                 "points": points,
                 "errors": errors,
                 "time": time,
@@ -237,7 +285,6 @@ $(function() {
     });
 
     $('#cancel').click(function() {
-        let form = document.querySelector('#step2');
         $("#step2 :input").attr("disabled", false);
         $('#collapse1').collapse();
         $("#step3").hide();

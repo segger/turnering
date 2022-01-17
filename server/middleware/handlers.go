@@ -49,6 +49,42 @@ func GetContestById(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(contest)
 }
 
+func GetContestParticipant(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	contestId := params["contestId"]
+	participantId := params["participantId"]
+
+	participants, err := database.GetContestParticipants(contestId)
+	if err != nil {
+		log.Printf("Unable to get participant. %v", err)
+	}
+
+	var currentParticipant []models.Participant
+	for _, participant := range participants {
+		if participant.Id == participantId {
+			currentParticipant = append(currentParticipant, participant)
+		}
+	}
+
+	json.NewEncoder(w).Encode(currentParticipant)
+}
+
+func CreateOrGetParticipant(w http.ResponseWriter, r *http.Request) {
+
+	var participant models.Participant
+
+	err := json.NewDecoder(r.Body).Decode(&participant)
+	if err != nil {
+		log.Printf("Unable to decode request body %v", err)
+		w.WriteHeader(http.StatusBadRequest)
+		return
+
+	}
+
+	result := database.AddParticipantIfNotExists(participant)
+	json.NewEncoder(w).Encode(result)
+}
+
 func RegisterResult(w http.ResponseWriter, r *http.Request) {
 
 	var register models.Protocol
@@ -77,6 +113,18 @@ func GetRegistered(w http.ResponseWriter, r *http.Request) {
 	contestId := params["contestId"]
 
 	results, err := database.GetRegisteredByContestId(contestId)
+	if err != nil {
+		log.Printf("Unable to get result. %v", err)
+	}
+	json.NewEncoder(w).Encode(results)
+}
+
+func GetResultForParticipant(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	contestId := params["contestId"]
+	participantId := params["participantId"]
+
+	results, err := database.GetResultByContestIdAndParticipantId(contestId, participantId)
 	if err != nil {
 		log.Printf("Unable to get result. %v", err)
 	}

@@ -114,6 +114,27 @@ func GetRegisteredByContestId(id string) ([]models.ContestRegistered, error) {
 	return results, err
 }
 
+func GetContestParticipants(contestId string) ([]models.Participant, error) {
+	db := createConnection()
+
+	defer db.Close()
+
+	var participants []models.Participant
+	sqlStatement := `SELECT DISTINCT participant.id, first_name, dog_name, class_nbr FROM result JOIN participant ON result.participant_id=participant.id WHERE result.contest_id=$1`
+	rows, err := db.Query(sqlStatement, contestId)
+
+	for rows.Next() {
+		var result models.Participant
+
+		err = rows.Scan(&result.Id, &result.FirstName, &result.DogName, &result.ClassNbr)
+		if err != nil {
+			log.Printf("Unable to scan row. %v", err)
+		}
+		participants = append(participants, result)
+	}
+	return participants, err
+}
+
 func GetResultByContestId(id string) ([]models.ContestResult, error) {
 	db := createConnection()
 
@@ -136,11 +157,69 @@ func GetResultByContestId(id string) ([]models.ContestResult, error) {
 	return results, err
 }
 
-func AddProtocol(protocol models.Protocol) {
-	participantId := createParticipant(protocol.Participant)
-	for _, result := range protocol.EventResultList {
-		createResult(participantId, protocol.ContestId, result)
+func GetResultByContestIdAndParticipantId(contestId string, participantId string) ([]models.EventResult, error) {
+	db := createConnection()
+
+	defer db.Close()
+
+	var results []models.EventResult
+	sqlStatement := `SELECT result.id, event_name, points, errors, time, sse ` +
+		`FROM result WHERE result.contest_id=$1 AND participant_id=$2`
+	rows, err := db.Query(sqlStatement, contestId, participantId)
+
+	for rows.Next() {
+		var result models.EventResult
+
+		err = rows.Scan(&result.ResultId, &result.EventName, &result.Points, &result.Errors, &result.Time, &result.Sse)
+		if err != nil {
+			log.Printf("Unable to scan row. %v", err)
+		}
+		results = append(results, result)
 	}
+	return results, err
+}
+
+func AddProtocol(protocol models.Protocol) {
+	participantId := AddParticipantIfNotExists(protocol.Participant).Id
+	for _, result := range protocol.EventResultList {
+		upsertResult(participantId, protocol.ContestId, result)
+	}
+}
+
+func AddParticipantIfNotExists(participant models.Participant) models.Participant {
+	participantByName, err := getParticipantByNames(participant.FirstName, participant.DogName, participant.ClassNbr)
+	if err != nil {
+		panic(err)
+	}
+	if participantByName.Id != "" {
+		return participantByName
+	} else {
+		participantId := createParticipant(participant)
+		participant.Id = participantId
+		return participant
+	}
+}
+
+func getParticipantByNames(firstName string, dogName string, classNbr int8) (models.Participant, error) {
+	db := createConnection()
+
+	defer db.Close()
+
+	var participant models.Participant
+	sqlStatement := `SELECT id, first_name, dog_name, class_nbr ` +
+		`FROM participant WHERE first_name=$1 AND dog_name=$2 AND class_nbr=$3`
+
+	row := db.QueryRow(sqlStatement, firstName, dogName, classNbr)
+	err := row.Scan(&participant.Id, &participant.FirstName, &participant.DogName, &participant.ClassNbr)
+	switch err {
+	case sql.ErrNoRows:
+		return participant, nil
+	case nil:
+		return participant, nil
+	default:
+		log.Printf("Unable to scan row %v", err)
+	}
+	return participant, err
 }
 
 func createParticipant(participant models.Participant) string {
@@ -157,6 +236,37 @@ func createParticipant(participant models.Participant) string {
 	}
 
 	return participantId.String()
+}
+
+func upsertResult(participant string, contest string, result models.EventResult) string {
+	// log.Printf("result id %v", result.ResultId)
+	if result.ResultId == "null" {
+		return createResult(participant, contest, result)
+	} else {
+		return updateResult(participant, contest, result)
+	}
+}
+
+func updateResult(participant string, contest string, result models.EventResult) string {
+	db := createConnection()
+
+	defer db.Close()
+
+	sqlStatement := `UPDATE result SET created_at=$4, ` +
+		`event_name=$5, points=$6, errors=$7, time=$8, sse=$9` +
+		`WHERE id=$1 AND participant_id=$2 AND contest_id=$3`
+
+	participantId, err := uuid.Parse(participant)
+	contestId, err := uuid.Parse(contest)
+
+	now := time.Now()
+	_, err = db.Exec(sqlStatement, result.ResultId, participantId, contestId, now,
+		result.EventName, result.Points, result.Errors, result.Time, result.Sse)
+	if err != nil {
+		panic(err)
+	}
+
+	return result.ResultId
 }
 
 func createResult(participant string, contest string, result models.EventResult) string {
