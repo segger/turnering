@@ -41,6 +41,10 @@ contest-code?
 ##### event
 ##### tournament
 
+### systemd
+`WorkingDirectory` to where `.env` file live
+`ExecStart` to built `server`
+
 ### google cloud console
 
 connect ssh - settings - file transfer
