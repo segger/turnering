@@ -139,5 +139,8 @@ func GetResults(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Printf("Unable to get result. %v", err)
 	}
-	json.NewEncoder(w).Encode(results)
+
+	sortedResult := Calc(results)
+
+	json.NewEncoder(w).Encode(sortedResult)
 }

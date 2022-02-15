@@ -10,16 +10,20 @@ $(function() {
                     let contestButtonOpen = '<button id="' + element.id + '" type="button" '+
                     'class="btn btn-primary register" ';
                     let contestButtonClose = element.name + '</button>';
-                    let disabled = element.enabled ? "" : "disabled";
-                    let contest = contestButtonOpen + disabled + '>' + contestButtonClose;
-                    let result = contestButtonOpen + '>' + contestButtonClose;
-                    $('#contests').append(contest);
-                    $('#registered').append(result);
+                    let registerDisable = element.enabled ? "" : "disabled";
+                    let register = contestButtonOpen + registerDisable + '>' + contestButtonClose;
+                    let registered = contestButtonOpen + '>' + contestButtonClose;
+                    let resultDisable = element.enabled ? "disabled" : "";
+                    let result = contestButtonOpen + resultDisable + '>' + contestButtonClose;
+                    $('#contests').append(register);
+                    $('#registered').append(registered);
+                    $('#result').append(result);
                 });
             } else {
                 let empty = '<div>Det finns inga tävlingar</div>';
                 $('#contests').append(empty);
                 $('#registered').append(empty);
+                $('#result').append(empty);
             }
         },
         error: function(error) {
@@ -27,6 +31,7 @@ $(function() {
             let empty = '<div>Något gick fel. Försök igen senare.</div>';
             $('#contests').append(empty);
             $('#registered').append(empty);
+            $('#result').append(empty);
         }
     });
     
@@ -42,5 +47,11 @@ $(function() {
         Cookies.set('registerId',contestId);
         window.location.href = "/registered.html";
         return false;
+    });
+
+    $('#result').on('click', 'button.register', function() {
+        contestId = $(this).attr('id');
+        Cookies.set('registerId', contestId);
+        window.location.href = "/result.html";
     });
 });

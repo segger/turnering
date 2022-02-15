@@ -45,3 +45,14 @@ type ContestResult struct {
 	Time      int64   `json:"time"`
 	Sse       bool    `json:"sse"`
 }
+
+type ContestResultSorted struct {
+	Placement int     `json:"placement"`
+	FirstName string  `json:"firstName"`
+	DogName   string  `json:"dogName"`
+	Points    float32 `json:"points"`
+	Errors    int32   `json:"errors"`
+	Time      int64   `json:"time"`
+	Sse       bool    `json:"sse"`
+	TP        float32 `json:"tournamentPoints"`
+}
