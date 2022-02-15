@@ -82,6 +82,9 @@ func sortAndCalc(event map[string][]models.ContestResult) map[string][]models.Co
 }
 
 func Calc(input []models.ContestResult) []map[string][]models.ContestResultSorted {
+	if len(input) <= 0 {
+		return nil
+	}
 
 	nw1 := make(map[string][]models.ContestResult)
 	nw2 := make(map[string][]models.ContestResult)

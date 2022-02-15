@@ -28,6 +28,10 @@ a.header {
     padding: 30px 15px 15px 15px;
 }
 
+button {
+    margin: 10px;
+}
+
 .contestHeader {
     display: flex;
 }
