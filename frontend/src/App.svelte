@@ -1,30 +1,49 @@
 <script lang="ts">
-	export let name: string;
+import { onMount } from "svelte";
+
+import Header from "./Header.svelte";
+import Footer from "./Footer.svelte";
+
+
+onMount(async () => {
+	fetch("/api/contests")
+	.then(response => response.json())
+	.then(data => {
+		if (data && data.length) {
+			console.log('yes');
+		}
+	}).catch(error => {
+		console.error(error);
+	})
+});
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<Header></Header>
+	<div class="container">
+		<div>
+			<h3>Registrera resultat</h3>
+			<div id="contests" class="form-group">
+				<div>Det finns inga tävlingar</div>
+			</div>
+			<h3>Visa registrerade</h3>
+			<div id="registered" class="form-group">
+				<div>Det finns inga tävlingar</div>
+			</div>
+			<h3>Visa resultat</h3>
+			<div id="result" class="form-group">
+				<div>Det finns inga tävlingar</div>
+			</div>
+		</div>
+	</div>
+	<Footer></Footer>
 </main>
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
+	:global(html),
+	:global(body) {
+    	height: 100%;
+    	display: flex; 
+    	flex-direction: column;
 	}
 </style>
