@@ -56,6 +56,7 @@ $(function() {
             $('#editStep1').show();
             $('#editStep1').attr("disabled", false);
             $('#accordionStep2').show();
+            $('#step3').show();
         }
     });
 
@@ -104,6 +105,8 @@ $(function() {
         $('#collapse1').addClass("show");
 
         setUpValidation();
+        let form = document.querySelector('#step2');
+        setSummary(form, nbrOfSearches);
     }
     
     function setUpValidation() {
@@ -177,8 +180,7 @@ $(function() {
         });
     }
 
-    function setSummary(form, classNbr) {
-        let nbrOfSearches = classNbr == 1 ? 4 : 3;
+    function setSummary(form, nbrOfSearches) {
         for (let i = 1; i <= nbrOfSearches; i++) {
             let si = parseInt(i);
             let points = form.querySelector('#point_'+si).value;
@@ -201,20 +203,20 @@ $(function() {
         $('#search_time_'+si).text(fmm+":"+fss+","+fms+" ");
         if (sse) {
             $('#search_sse_'+si).text("sse");
+        } else {
+            $('#search_sse_'+si).text("");
         }
     }
 
-    $('#buttonStep2').click(function() {
+    $('#search_steps').click(function() {
         let form = document.querySelector('#step2');
         if (!$('#step2').valid()) {
-            allCollapsables(form, true);
+            $('#save').attr("disabled", true);
         } else {
             let classNbr = $('input[name="classNbr"]:checked').val();
-            $("#step2 :input").attr("disabled", true);
-            allCollapsables(form, false);
-            setSummary(form, classNbr);
-            $("#step3").show();
-            $('#buttonStep2').hide();
+            let nbrOfSearches = classNbr == '1' ? 4 : 3;
+            setSummary(form, nbrOfSearches);
+            $('#save').attr("disabled", false);
         }
     });
 
@@ -282,13 +284,6 @@ $(function() {
 
         window.location.href = "/registered.html";
         return false;
-    });
-
-    $('#cancel').click(function() {
-        $("#step2 :input").attr("disabled", false);
-        $('#collapse1').collapse();
-        $("#step3").hide();
-        $('#buttonStep2').show();
     });
 });
 
