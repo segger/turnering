@@ -48,6 +48,11 @@ contest-code?
 ##### result
 ##### tournament
 
+```
+pg_dump -h localhost -U dbuser -Fc -f backup.pgdump
+pg_restore -h localhost -U dbuser -d dbname
+```
+
 ### systemd
 `WorkingDirectory` to where `.env` file live
 `ExecStart` to built `server`

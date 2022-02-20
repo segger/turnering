@@ -11,8 +11,6 @@ $(function() {
         url: '/api/contests/'+contestId,
         dataType: 'json',
         success: function(data) {
-            console.log(data);
-            
             data.EventList.forEach((event) => {
                 if (event.classNbr == '1') {
                     contestEvents["NW1"].push({
@@ -64,7 +62,7 @@ $(function() {
                 dataType: 'json'
             })
         }).done(function(data) {
-            console.log('done ', data);
+            // console.log('done ', data);
             generateStep2(participantObj, data);
         }).fail(function(err) {
             console.log('err', err);
@@ -102,20 +100,22 @@ $(function() {
         let nbrOfSearches = events.length;
         var search = [];
         for (let i = 1; i <= nbrOfSearches; i++) {
-            let resultId = data ? data[i-1].resultId : null;
-            let points = data ? data[i-1].points : 0;
-            let errors = data ? data[i-1].errors : 0;
+            let resultId = data && data[i-1] ? data[i-1].resultId : null;
+            let points = data && data[i-1] ? data[i-1].points : 0;
+            let errors = data && data[i-1] ? data[i-1].errors : 0;
 
-            let ticks = data ? data[i-1].time : 0;
+            let ticks = data && data[i-1] ? data[i-1].time : 0;
             let mm = Math.floor(ticks / (60*100));
             let ss = Math.floor((ticks / 100) % 60);
             let ms = ticks % 100;
 
-            let sse = data ? data[i-1].sse : false;
+            let sse = data && data[i-1] ? data[i-1].sse : false;
+            let eventId = events && events[i-1] ? events[i-1].id : null;
+            let eventName = events && events[i-1] ? events[i-1].name : '';
             search.push({
                 "resultId": resultId,
-                "eventId": events[i-1].id,
-                "name": events[i-1].name,
+                "eventId": eventId,
+                "name": eventName,
                 "order": i,
                 "points": points,
                 "errors": errors,
