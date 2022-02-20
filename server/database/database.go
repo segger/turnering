@@ -120,7 +120,8 @@ func GetRegisteredByContestId(id string) ([]models.ContestRegistered, error) {
 
 	var results []models.ContestRegistered
 	sqlStatement := `SELECT first_name, dog_name, participant.class_nbr, event.name ` +
-		`FROM result JOIN participant ON result.participant_id=participant.id JOIN event ON result.event_id=event.id WHERE result.contest_id=$1 ORDER BY result.created_at desc`
+		`FROM result JOIN participant ON result.participant_id=participant.id ` +
+		`JOIN event ON result.event_id=event.id WHERE result.contest_id=$1 AND result.deleted = false ORDER BY result.created_at desc`
 	rows, err := db.Query(sqlStatement, id)
 
 	for rows.Next() {
@@ -163,7 +164,8 @@ func GetResultByContestId(id string) ([]models.ContestResult, error) {
 
 	var results []models.ContestResult
 	sqlStatement := `SELECT first_name, dog_name, participant.class_nbr, event.name, points, errors, time, sse ` +
-		`FROM result JOIN participant ON result.participant_id=participant.id JOIN event ON result.event_id=event.id WHERE result.contest_id=$1`
+		`FROM result JOIN participant ON result.participant_id=participant.id JOIN event ON result.event_id=event.id ` +
+		`WHERE result.contest_id=$1 AND result.deleted = false`
 	rows, err := db.Query(sqlStatement, id)
 
 	for rows.Next() {
@@ -213,8 +215,10 @@ func AddParticipantIfNotExists(participant models.Participant) models.Participan
 		panic(err)
 	}
 	if participantByName.Id != "" {
+		log.Printf("Participant exists with id %s", participantByName.Id)
 		return participantByName
 	} else {
+		log.Printf("Creating participant...")
 		participantId := createParticipant(participant)
 		participant.Id = participantId
 		return participant
