@@ -1,11 +1,37 @@
 $(function() {
     let contestId = Cookies.get('registerId');
     
+    let contestEvents = {
+        "NW1": [],
+        "NW2": []
+    };
+
     $.ajax({
         type: 'GET',
         url: '/api/contests/'+contestId,
         dataType: 'json',
         success: function(data) {
+            console.log(data);
+            
+            data.EventList.forEach((event) => {
+                if (event.classNbr == '1') {
+                    contestEvents["NW1"].push({
+                        "id": event.id,
+                        "name": event.name,
+                        "sortOrder": event.sortOrder
+                    });
+                } else if (event.classNbr == '2') {
+                    contestEvents["NW2"].push({
+                        "id": event.id,
+                        "name": event.name,
+                        "sortOrder": event.sortOrder
+                    })
+                }
+            });
+
+            contestEvents["NW1"].sort((a, b) => (a.sortOrder > b.sortOrder) ? 1 : -1);
+            contestEvents["NW2"].sort((a, b) => (a.sortOrder > b.sortOrder) ? 1 : -1);
+
             $('#contestName').html(" | " + data.name);
         },
         error: function(error) {
@@ -38,7 +64,7 @@ $(function() {
                 dataType: 'json'
             })
         }).done(function(data) {
-            // console.log('done ', data);
+            console.log('done ', data);
             generateStep2(participantObj, data);
         }).fail(function(err) {
             console.log('err', err);
@@ -72,7 +98,8 @@ $(function() {
     }
 
     function generateStep2(participant, data) {
-        let nbrOfSearches = participant.classNbr == '1' ? 4 : 3;
+        let events = participant.classNbr == '1' ? contestEvents.NW1 : contestEvents.NW2;
+        let nbrOfSearches = events.length;
         var search = [];
         for (let i = 1; i <= nbrOfSearches; i++) {
             let resultId = data ? data[i-1].resultId : null;
@@ -87,7 +114,8 @@ $(function() {
             let sse = data ? data[i-1].sse : false;
             search.push({
                 "resultId": resultId,
-                "name":"Sök "+i,
+                "eventId": events[i-1].id,
+                "name": events[i-1].name,
                 "order": i,
                 "points": points,
                 "errors": errors,
@@ -242,7 +270,8 @@ $(function() {
         let search = [];
         for (let i = 1; i <= nbrOfSearches; i++) {
             let si = parseInt(i);
-            let eventName = $('#search_event_name_'+si).text();
+            let eventId = resultData['event_id_'+si];
+            // let eventName = $('#search_event_name_'+si).text();
             let resultId = resultData['result_id_'+si];
             let points = Number(resultData['point_'+si]);
             let errors = Number(resultData['error_'+si]);
@@ -252,7 +281,7 @@ $(function() {
             let time = Number(mm)*60*100+Number(ss)*100+Number(ms);
             let sse = resultData['sse_'+si] ? true : false;
             var searchObj = {
-                "eventName": eventName,
+                "eventId": eventId,
                 "resultId": resultId,
                 "points": points,
                 "errors": errors,

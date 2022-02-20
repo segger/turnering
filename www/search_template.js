@@ -2,6 +2,7 @@ function createSearchCard(s) {
     var template = [
         '<div id="search_'+s.order+'" class="card">',
             '<input id="result_id_'+s.order+'" name="result_id_'+s.order+'" type="hidden" value="'+s.resultId+'"/>',
+            '<input id="event_id_'+s.order+'" name="event_id_'+s.order+'" type="hidden" value="'+s.eventId+'"/>',
             '<div class="card-header" id="heading'+s.order+'" data-toggle="collapse" data-target="#collapse'+s.order+'" aria-expanded="true" aria-controls="collapse'+s.order+'">',
                 '<span id="search_event_name_'+s.order+'" class="h3 col-md-4">'+s.name+'</span>',
                 '<span id="search_points_'+s.order+'"></span>',

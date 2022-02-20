@@ -19,6 +19,14 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 | name  | varchar(100) |
 | enabled | boolean |
 
+##### event
+| field | type |
+| ----- | ---- |
+| id    | uuid |
+| name  | varchar(50) |
+| class_nbr  | smallint |
+| contest_id | uuid |
+
 contest-code?
 
 ##### result
@@ -29,7 +37,7 @@ contest-code?
 | deleted | boolean |
 | participant_id | uuid |
 | contest_id | uuid |
-| event_name | varchar(50) |
+| event_id | uuid |
 | points | real |
 | errors | integer |
 | time | integer |
@@ -38,7 +46,6 @@ contest-code?
 ##### protocol
 ##### protocol_event
 ##### result
-##### event
 ##### tournament
 
 ### systemd

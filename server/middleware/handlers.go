@@ -43,6 +43,9 @@ func GetContestById(w http.ResponseWriter, r *http.Request) {
 	contestId := params["contestId"]
 
 	contest, err := database.GetContestById(contestId)
+	event, err := database.GetEventByContestId(contestId)
+	contest.EventList = event
+
 	if err != nil {
 		log.Printf("Unable to get contest. %v", err)
 	}

@@ -8,9 +8,17 @@ type Participant struct {
 }
 
 type Contest struct {
-	Id      string `json:"id"`
-	Name    string `json:"name"`
-	Enabled bool   `json:"enabled"`
+	Id        string `json:"id"`
+	Name      string `json:"name"`
+	Enabled   bool   `json:"enabled"`
+	EventList []Event
+}
+
+type Event struct {
+	Id        string `json:"id"`
+	Name      string `json:"name"`
+	ClassNbr  int8   `json:"classNbr,string"`
+	SortOrder int    `json:"sortOrder"`
 }
 
 type Protocol struct {
@@ -20,12 +28,12 @@ type Protocol struct {
 }
 
 type EventResult struct {
-	EventName string  `json:"eventName"`
-	ResultId  string  `json:"resultId"`
-	Points    float32 `json:"points"`
-	Errors    int32   `json:"errors"`
-	Time      int64   `json:"time"`
-	Sse       bool    `json:"sse"`
+	EventId  string  `json:"eventId"`
+	ResultId string  `json:"resultId"`
+	Points   float32 `json:"points"`
+	Errors   int32   `json:"errors"`
+	Time     int64   `json:"time"`
+	Sse      bool    `json:"sse"`
 }
 
 type ContestRegistered struct {
