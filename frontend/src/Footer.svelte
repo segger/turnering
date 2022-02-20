@@ -2,12 +2,10 @@
 	
 </script>
 
-<main>
-    <div class="footer">
-        Vid problem gällande turneringssidan<br/>
-        kontakta turnering at nosnord.com
-    </div>
-</main>
+<div class="footer">
+    Vid problem gällande turneringssidan<br/>
+    kontakta turnering at nosnord.com
+</div>
 
 <style>
 	.footer{

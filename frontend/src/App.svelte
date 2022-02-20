@@ -1,20 +1,24 @@
 <script lang="ts">
 import { onMount } from "svelte";
 
+import { Button } from "sveltestrap";
+
 import Header from "./Header.svelte";
 import Footer from "./Footer.svelte";
 
+let contests = [];
 
 onMount(async () => {
 	fetch("/api/contests")
 	.then(response => response.json())
 	.then(data => {
 		if (data && data.length) {
-			console.log('yes');
+			console.log(data);
+			contests = data;
 		}
 	}).catch(error => {
 		console.error(error);
-	})
+	});
 });
 </script>
 
@@ -24,7 +28,13 @@ onMount(async () => {
 		<div>
 			<h3>Registrera resultat</h3>
 			<div id="contests" class="form-group">
-				<div>Det finns inga tävlingar</div>
+				{#if contests !== undefined && contests.length > 0}
+					{#each contests as contest}
+						<Button color="primary" disabled={contest.enabled}>{contest.name}</Button>
+					{/each}
+				{:else}
+					<div>Det finns inga tävlingar</div>
+				{/if}
 			</div>
 			<h3>Visa registrerade</h3>
 			<div id="registered" class="form-group">
@@ -45,5 +55,6 @@ onMount(async () => {
     	height: 100%;
     	display: flex; 
     	flex-direction: column;
+		padding: 0;
 	}
 </style>

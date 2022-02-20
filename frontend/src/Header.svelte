@@ -2,11 +2,9 @@
 	
 </script>
 
-<main>
-    <div class="header">
-        <a class="header" href="https://nosnord.com"><div>Sara Lahti Nosnörd</div></a>
-    </div>
-</main>
+<div class="header">
+    <a class="header" href="https://nosnord.com"><div>Sara Lahti Nosnörd</div></a>
+</div>
 
 <style>
     .header {
