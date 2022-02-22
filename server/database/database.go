@@ -232,7 +232,7 @@ func getParticipantByNames(firstName string, dogName string, classNbr int8) (mod
 
 	var participant models.Participant
 	sqlStatement := `SELECT id, first_name, dog_name, class_nbr ` +
-		`FROM participant WHERE first_name=$1 AND dog_name=$2 AND class_nbr=$3`
+		`FROM participant WHERE first_name=$1 AND dog_name=$2 AND class_nbr=$3 AND deleted=false`
 
 	row := db.QueryRow(sqlStatement, firstName, dogName, classNbr)
 	err := row.Scan(&participant.Id, &participant.FirstName, &participant.DogName, &participant.ClassNbr)

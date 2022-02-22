@@ -46,7 +46,9 @@ $(function() {
         let participant = $('#step1').serializeArray();
         var participantObj = {};
         $(participant).each(function(index, obj){
-            participantObj[obj.name] = obj.value;
+            let pname = $.trim(obj.name);
+            let pvalue = $.trim(obj.value);
+            participantObj[pname] = pvalue;
         });
 
         $.ajax({
@@ -267,7 +269,9 @@ $(function() {
 
         var resultData = {};
         $(results).each(function(index, obj) {
-            resultData[obj.name] = obj.value;
+            let objName = $.trim(obj.name);
+            let objValue = $.trim(obj.value);
+            resultData[objName] = objValue;
         });
 
         let search = [];
@@ -296,7 +300,9 @@ $(function() {
 
         var participantObj = {};
         $(participant).each(function(index, obj){
-            participantObj[obj.name] = obj.value;
+            let pname = $.trim(obj.name);
+            let pvalue = $.trim(obj.value);
+            participantObj[pname] = pvalue;
         });
 
         var data = {};
