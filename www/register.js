@@ -264,7 +264,7 @@ $(function() {
         $("#step2 :input").attr("disabled", true);
 
         let classNbr = $('input[name="classNbr"]:checked').val();
-        let events = participant.classNbr == '1' ? contestEvents.NW1 : contestEvents.NW2;
+        let events = classNbr == '1' ? contestEvents.NW1 : contestEvents.NW2;
         let nbrOfSearches = events.length;
 
         var resultData = {};
@@ -317,10 +317,12 @@ $(function() {
             error: function(e) {
                 console.log(e);
             },
-            contentType: "application/json"
+            contentType: "application/json",
+            success: function(result) {
+                window.location.href = "/registered.html";
+            }
         });
 
-        window.location.href = "/registered.html";
         return false;
     });
 });
