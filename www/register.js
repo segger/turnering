@@ -242,7 +242,9 @@ $(function() {
             $('#save').attr("disabled", true);
         } else {
             let classNbr = $('input[name="classNbr"]:checked').val();
-            let nbrOfSearches = classNbr == '1' ? 4 : 3;
+            let events = classNbr == '1' ? contestEvents.NW1 : contestEvents.NW2;
+            let nbrOfSearches = events.length;
+
             setSummary(form, nbrOfSearches);
             $('#save').attr("disabled", false);
         }
@@ -260,7 +262,8 @@ $(function() {
         $("#step2 :input").attr("disabled", true);
 
         let classNbr = $('input[name="classNbr"]:checked').val();
-        let nbrOfSearches = classNbr == 1 ? 4 : 3;
+        let events = participant.classNbr == '1' ? contestEvents.NW1 : contestEvents.NW2;
+        let nbrOfSearches = events.length;
 
         var resultData = {};
         $(results).each(function(index, obj) {
