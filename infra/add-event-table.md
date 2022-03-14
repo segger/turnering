@@ -29,3 +29,8 @@ insert into event (id, name, class_nbr, sort_order, contest_id) values (uuid_gen
 insert into event (id, name, class_nbr, sort_order, contest_id) values (uuid_generate_v4(), 'Sök 2', 2, 2, '98bee440-42b8-41b7-9d58-4889586d9a99');
 insert into event (id, name, class_nbr, sort_order, contest_id) values (uuid_generate_v4(), 'Sök 3', 2, 3, '98bee440-42b8-41b7-9d58-4889586d9a99');
 ```
+
+#### Set results as deleted
+```
+alter table participant add column deleted boolean not null default false;
+```
