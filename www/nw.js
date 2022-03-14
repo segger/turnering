@@ -7,14 +7,19 @@ $(function() {
         success: function(data) {
             if (data && data.length) {
                 data.forEach(element => {
-                    let contestButtonOpen = '<button id="' + element.id + '" type="button" '+
-                    'class="btn btn-primary register" ';
-                    let contestButtonClose = element.name + '</button>';
-                    let registerDisable = element.enabled ? "" : "disabled";
-                    let register = contestButtonOpen + registerDisable + '>' + contestButtonClose;
-                    let registered = contestButtonOpen + '>' + contestButtonClose;
-                    let resultDisable = element.enabled ? "disabled" : "";
-                    let result = contestButtonOpen + resultDisable + '>' + contestButtonClose;
+                    // let contestButtonOpen = '<button id="' + element.id + '" type="button" '+
+                    // 'class="btn btn-primary register" ';
+                    // let contestButtonClose = element.name + '</button>';
+                    // let registerDisable = element.enabled ? "" : "disabled";
+                    // let register = contestButtonOpen + registerDisable + '>' + contestButtonClose;
+                    // let registered = contestButtonOpen + '>' + contestButtonClose;
+                    // let resultDisable = element.enabled ? "disabled" : "";
+                    // let result = contestButtonOpen + resultDisable + '>' + contestButtonClose;
+                    let button = '<button id="' + element.id + '" type="button" '+
+                    'class="btn btn-primary register">' + element.name + '</button>';
+                    let register = button;
+                    let registered = button;
+                    let result = button;
                     $('#contests').append(register);
                     $('#registered').append(registered);
                     $('#result').append(result);
